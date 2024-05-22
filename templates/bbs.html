@@ -414,6 +414,23 @@
               $(this).replaceWith(replacedText);
             }
           });
+          $("#result").find("*").contents().each(function() {
+            if (this.nodeType === 3) {
+                var text = $(this).text();
+                const urlRegex = .*\/(?:watch\?)?(?:v=)?(?:feature=[a-z_]+&)?(?:v=)?([a-zA-Z0-9-=_]{11,})(?:&feature=[a-z_]*)?(?:\?t=[0-9]+)?.*;
+                if (urlRegex.test(text)) {
+                    let replacedText = text.replace(urlRegex, function(url) {
+                        let match = url.match(urlRegex);
+                        if (match) {
+                            let videoId = match[1];
+                            return '<a href="/watch?v=' + videoId + '">' + url + '</a>';
+                        }
+                        return url;
+                    });
+                    $(this).replaceWith(replacedText);
+                }
+            }
+        });
           $('.anchor').click(function() {
             var currentMsg = $('#message').val();
             $('#message').val(currentMsg + '≫' + $(this).text() + ' ');
