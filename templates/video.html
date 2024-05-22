@@ -10,6 +10,51 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        .button {
+          align-items: center;
+          appearance: none;
+          background-color: #fff;
+          border: 1px solid #dbdbdb;
+          border-radius: .375em;
+          box-shadow: none;
+          box-sizing: border-box;
+          color: #363636;
+          cursor: pointer;
+          display: inline-flex;
+          font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+          font-size: 13px;
+          height: 2.5em;
+          justify-content: center;
+          line-height: 1.5;
+          padding: calc(.5em - 1px) 1em;
+          position: relative;
+          text-align: center;
+          user-select: none;
+          -webkit-user-select: none;
+          touch-action: manipulation;
+          vertical-align: top;
+          white-space: nowrap;
+        }
+        
+        .button:active {
+          border-color: #4a4a4a;
+          outline: 0;
+        }
+        
+        .button:focus {
+          border-color: #485fc7;
+          outline: 0;
+        }
+        
+        .button:hover {
+          border-color: #b5b5b5;
+        }
+        
+        .button:focus:not(:active) {
+          box-shadow: rgba(72, 95, 199, .25) 0 0 0 .125em;
+        }
+    </style>
 </head>
 
 <body class="no-theme">
@@ -46,19 +91,16 @@
             <div class="pure-g">
                 <div class="pure-u-1 pure-u-lg-1-5">
                     <a href="{{ videourls[0] }}" target="_blank">ダウンロード</a><br>
-                    <a
-                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.protocol+'//'+document.domain+'/watch?v={{ videoid }}'+'&t='+Math.floor(document.getElementById('player').currentTime),})}">現時点の動画を共有</a><br>
-                    <a
-                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.href,})}">動画を共有</a><br>
+                    <a href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.protocol+'//'+document.domain+'/watch?v={{ videoid }}'+'&t='+Math.floor(document.getElementById('player').currentTime),})}">現時点の動画を共有</a><br>
+                    <a href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.href,})}">動画を共有</a><br>
+                    <button class="button" role="button">youtubeURLを取得</button>
                     <hr>
                 </div>
                 <div class="pure-u-1 pure-u-lg-3-5">
                     <div class="h-box">
                         <a href="/channel/{{authorid}}" style="display:block;width:fit-content;width:-moz-fit-content">
                             <div class="channel-profile">
-
                                 <img src="{{authoricon}}">
-
                                 <span id="channel-name">{{ author }}</span>
                             </div>
                         </a>
@@ -137,6 +179,14 @@
                 }
             }, delay: 300
         });</script>
+    <script>
+      const button = document.querySelector('.button')
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.pathname + window.location.search)
+        button.innerHTML = 'コピー完了！'
+        setTimeout(() => button.innerHTML = 'youtubeURLを取得', 1000)
+      })
+    </script>
 </body>
 
 </html>
