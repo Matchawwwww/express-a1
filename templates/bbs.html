@@ -23,9 +23,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;600;700&family=Tilt+Neon:XROT@31&family=Zen+Kurenaido&display=swap');
-    </style>
-    <style>      
+      
       :root {
         --light-bg: #fff;
         --light-fg: #000;
@@ -46,6 +44,10 @@
 
       * {
         margin: 0;
+      }
+
+      .test{
+        display:block;
       }
       
       .example4 {
@@ -108,69 +110,13 @@
       .menu-toggle-button{
         display:block;
       }
-      .button-4 {
-      appearance: none;
-      background-color: #FAFBFC;
-      border: 1px solid rgba(27, 31, 35, 0.15);
-      border-radius: 6px;
-      box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
-      box-sizing: border-box;
-      color: #24292E;
-      cursor: pointer;
-      display: inline-block;
-      font-family:"Zen Kurenaido", sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 20px;
-      list-style: none;
-      padding: 6px 16px !important;
-      position: relative;
-      transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
-      vertical-align: middle;
-      white-space: nowrap;
-      word-wrap: break-word;
-    }
-
-    .button-4:hover {
-      background-color: #F3F4F6;
-      text-decoration: none;
-      transition-duration: 0.1s;
-    }
-    
-    .button-4:disabled {
-      background-color: #FAFBFC;
-      border-color: rgba(27, 31, 35, 0.15);
-      color: #959DA5;
-      cursor: default;
-    }
-    
-    .button-4:active {
-      background-color: #EDEFF2;
-      box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
-      transition: none 0s;
-    }
-    
-    .button-4:focus {
-      outline: 1px transparent;
-    }
-
-    .button-4:before {
-      display: none;
-    }
-    
-    .button-4:-webkit-details-marker {
-      display: none;
-    }
     </style>
   </head>
   <body>
     <div class="bootstrap">
       <p id="fixed-server-timer" class="contest-timer" style="opacity: 1;">2024-05-03 (金)<br>18:46:31 +09:00</p>
     </div>
-    <a href="/">yuki youtubeへ</a>
+    <a href="/" class="test">戻る</a>
     <a href="javascript:var menu = document.querySelector('.menu'); menu.classList.toggle('active');" class="menu-toggle-button">メニュー</a>
     <div class="menu">
       <label for="darkmode">ダークモード:</label>
@@ -183,7 +129,6 @@
         <option value="Helvetica">Helvetica</option>
         <option value="Times New Roman">Times New Roman</option>
         <option value="Verdana">Verdana</option>
-        <option value="Zen Kurenaido">現代風フォント</option>
       </select>
       <label>Enterで送信</label>
       <input type="checkbox" name="entersubmit" id="entersubmit" value="specific">
@@ -215,7 +160,7 @@
       <br>
       <textarea name="message" rows="6" cols="100" maxlength="500" id="message" required></textarea>
       <p></p>
-      <button id="btn" class="button-4" role="button" onclick="sendMessageByUser()">送信</button>
+      <button id="btn" onclick="sendMessageByUser()">送信</button>
       スピーカー以上のメッセージのみを表示<input type="checkbox" id="verify" name="verify">
       <br><br><br>
       <h2>投稿</h2>
@@ -231,6 +176,15 @@
         cursor: pointer;
       }
       button.userIDAnchor{
+        color: #000;
+        background-color: #fff;
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+      }
+      .videoid{
         color: #000;
         background-color: #fff;
         background: none;
@@ -390,11 +344,6 @@
             
             function escapeHtml(unsafe) {
             return unsafe
-                 .replace(/&/g, "&amp;")
-                 .replace(/</g, "&nbsp;")
-                 .replace(/>/g, "&nbsp;")
-                 .replace(/"/g, "&quot;")
-                 .replace(/'/g, "&#039;");
             }
             
             firstTd.html(`<button class="anchor" id="${number}">${number}</button>`);
@@ -417,7 +366,7 @@
           $("#result").find("*").contents().each(function() {
             if (this.nodeType === 3) {
                 var text = $(this).text();
-                const urlRegex = .*\/(?:watch\?)?(?:v=)?(?:feature=[a-z_]+&)?(?:v=)?([a-zA-Z0-9-=_]{11,})(?:&feature=[a-z_]*)?(?:\?t=[0-9]+)?.*;
+                const urlRegex = /^.*\/(?:watch\?)?(?:v=)?(?:feature=[a-z_]+&)?(?:v=)?([a-zA-Z0-9-_]{11,})(?:&feature=[a-z_]*)?(?:\?t=[0-9]+)?$/;
                 if (urlRegex.test(text)) {
                     let replacedText = text.replace(urlRegex, function(url) {
                         let match = url.match(urlRegex);
@@ -431,10 +380,13 @@
                 }
             }
         });
+
+          
           $('.anchor').click(function() {
             var currentMsg = $('#message').val();
             $('#message').val(currentMsg + '≫' + $(this).text() + ' ');
           });
+          
           $('.userIDAnchor').click(function() {
             var currentMsg = $('#message').val();
             var cmdRegex = /^\/(dis)?speaker|manager|moderator$/g;
