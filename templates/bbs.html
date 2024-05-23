@@ -405,7 +405,7 @@
             if (this.nodeType === 3) {
               var text = $(this).text();
               var replacedText = text.replace(/≫(\d+) /g, "<a href='#$1'>$&</a>");
-              var urlRegex = /(https?:\/\/[^\s]+)/g;
+              var urlRegex = /(h?ttps?:\/\/[^\s]+)/g;
     　         if (urlRegex.test(text)) {
                 replacedText = replacedText.replace(urlRegex, function(url) {
                   return '<a href="' + url + '">' + url + '</a>';
