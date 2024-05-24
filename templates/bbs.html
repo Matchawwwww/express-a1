@@ -415,6 +415,9 @@
               var urlRegex = /(h?ttps?:\/\/[^\s]+)/g;
     　         if (urlRegex.test(text)) {
                 replacedText = replacedText.replace(urlRegex, function(url) {
+                  if (url.startsWith('ttp')) {
+                    url = 'h' + url;
+                  }
                   return '<a href="' + url + '">' + url + '</a>';
                 });
               }
