@@ -248,6 +248,17 @@
   
     <div id="result">loading...</div>
 
+    <script>
+      function AutoLink(str) {
+        var regexp_url = /((h?)(ttps?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g; // ']))/;
+        
+        var regexp_makeLink = function (all, url, h, href) {
+            return '<a href="h' + href + '" target="_blank">' + url + "</a>";
+        };
+
+        str = str.replace(regexp_c, replaceC);
+    }
+    </script>
     <script language="javascript">
       function pushHideButton() {
         var txtPass = document.getElementById("seed");
