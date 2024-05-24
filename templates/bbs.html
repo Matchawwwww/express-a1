@@ -239,6 +239,11 @@
         font: inherit;
         cursor: pointer;
       }
+      table{
+        table-layout:fixed
+        word-break:break-all;
+        word-wrap:break-all;
+      }
     </style>
   
     <div id="result">loading...</div>
@@ -387,6 +392,9 @@
             var number = firstTd.text();
             var username = secondTd.html();
             var thirdContent = thirdTd.text();
+            firstTd.css("width", "36px");
+            secondTd.css("width", "370px");
+            thirdTd.css("width", "670px");
             
             function escapeHtml(unsafe) {
             return unsafe
