@@ -295,13 +295,6 @@
           }
         });
       
-    function autoLink(str) {
-      var urlRegex = /(https?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+)/g;
-      return text.replace(urlRegex, function(url) {
-        return '<a href="' + url + '">' + url + '</a>';
-      });
-    }
-    
     // ライトモード化
     function toLightmode() {
       $('body').css('background-color', 'white');
@@ -408,14 +401,15 @@
             secondTd.html(`<button class="userIDAnchor">${username}</button>`);
             thirdTd.html(escapeHtml(thirdContent));
           });
+    
           $("#result").find("*").contents().each(function() {
             if (this.nodeType === 3) {
               var text = $(this).text();
               var replacedText = text.replace(/≫(\d+) /g, "<a href='#$1'>$&</a>");
-              var urlRegex = /(h?ttps?:\/\/[^\s]+)/g;
+              var urlRegex = /((h?)(ttps?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g; // ']))/;
     　         if (urlRegex.test(text)) {
-                replacedText = replacedText.replace(urlRegex, function(url) {
-                  return '<a href="' + url + '">' + url + '</a>';
+                replacedText = replacedText.replace(urlRegex, function(all,url,h,href) {
+                  return '<a href="h' + href + '" target="_blank">' + url + "</a>";
                 });
               }
               $(this).replaceWith(replacedText);
