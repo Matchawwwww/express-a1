@@ -271,20 +271,24 @@
     var $ta = $("#message");
     var $entersubmit = $("#entersubmit");
     
-    $(document).ready(function() {
-          var isChecked = localStorage.getItem("entersubmited");
-          if (isChecked === "true") {
-            $entersubmit.prop("checked", true);
-          }
+　　　$(document).ready(function() {
+        var checkBox = $('#entersubmit');
+
+        checkBox.prop('checked', localStorage.getItem('entersubmit') === 'true');
+
+        checkBox.change(function() {
+          localStorage.setItem('entersubmit', $(this).prop('checked'));
         });
+　　　　});
+      var entersubmit = localStorage.getItem('entersubmit') === 'true';
+      $('#entersubmit').prop('entersubmit', entersubmit);
+
     
-        $entersubmit.on("change", function() {
-          if ($(this).is(":checked")) {
-            localStorage.setItem("entersubmit", "true");
-          } else {
-            localStorage.setItem("entersubmit", "false");
-          }
-        });
+      $('#entersubmit').change(function() {
+        var entersubmit = $(this).prop('checked');
+        localStorage.setItem('entersubmit', entersubmit.toString());
+        loadMessage();
+      });
     
     $(document).on("keydown", "#message", function(e) {
           if ($entersubmit.is(":checked")) {
@@ -296,7 +300,7 @@
             }
           }
         });
-      
+    
     // ライトモード化
     function toLightmode() {
       $('body').css('background-color', 'white');
