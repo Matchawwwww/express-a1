@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lnag="ja">
 <head>
+  <script>
+  const fpPromise = import('https://openfpcdn.io/fingerprintjs/v4')
+    .then(FingerprintJS => FingerprintJS.load())
+  fpPromise
+    .then(fp => fp.get())
+    .then(result => {
+        document.cookie = 'i=' + result.visitorId + "; path=/;";
+    })
+  </script>
   <link rel="stylesheet" type="text/css" href="https://pgmemo.tokyo/data/filedir/1178_1.css?975">
   <link rel="stylesheet" type="text/css" href="//img.atcoder.jp/public/ea27d23/css/base.css">
   <link rel="shortcut icon" type="image/png" href="//img.atcoder.jp/assets/favicon.png">
