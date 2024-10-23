@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: yuki-bbs
+    name: expire
     env: python
     region: Oregon
     plan: free
